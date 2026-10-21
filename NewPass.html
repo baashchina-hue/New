@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول وتغيير كلمة المرور</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555555;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cccccc;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-submit:hover {
+      background-color: #0056b3;
+    }
+
+    .extra-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .extra-links a {
+      color: #007bff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .extra-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* لإخفاء النماذج والتبديل بينها */
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    
+    <!-- نموذج تسجيل الدخول -->
+    <div id="loginSection">
+      <h2>تسجيل الدخول</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginUser">اسم المستخدم</label>
+          <input type="text" id="loginUser" placeholder="أدخل اسم المستخدم" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPass">كلمة المرور</label>
+          <input type="password" id="loginPass" placeholder="أدخل كلمة المرور" required>
+        </div>
+        <button type="submit" class="btn-submit">دخول</button>
+        <div class="extra-links">
+          <a onclick="showSection('changePassSection')">نسيت/تغيير كلمة المرور؟</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- نموذج تغيير كلمة المرور -->
+    <div id="changePassSection" class="hidden">
+      <h2>تغيير كلمة المرور</h2>
+      <form id="changePassForm">
+        <div class="form-group">
+          <label for="oldPass">كلمة المرور الحالية</label>
+          <input type="password" id="oldPass" placeholder="أدخل كلمة المرور القديمة" required>
+        </div>
+        <div class="form-group">
+          <label for="newPass">كلمة المرور الجديدة</label>
+          <input type="password" id="newPass" placeholder="أدخل كلمة المرور الجديدة" required>
+        </div>
+        <div class="form-group">
+          <label for="confirmPass">تأكيد كلمة المرور الجديدة</label>
+          <input type="password" id="confirmPass" placeholder="أعد إدخال كلمة المرور الجديدة" required>
+        </div>
+        <button type="submit" class="btn-submit">تحديث كلمة المرور</button>
+        <div class="extra-links">
+          <a onclick="showSection('loginSection')">العودة لتسجيل الدخول</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    // دالة للتبديل بين واجهة تسجيل الدخول واجهة تغيير كلمة المرور
+    function showSection(sectionId) {
+      document.getElementById('loginSection').classList.add('hidden');
+      document.getElementById('changePassSection').classList.add('hidden');
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    // معالجة نموذج تسجيل الدخول
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('تم إرسال بيانات تسجيل الدخول بنجاح');
+    });
+
+    // معالجة نموذج تغيير كلمة المرور
+    document.getElementById('changePassForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newPass = document.getElementById('newPass').value;
+      const confirmPass = document.getElementById('confirmPass').value;
+
+      if (newPass !== confirmPass) {
+        alert('كلمتا المرور غير متطابقتين! الرجاء التحقق.');
+        return;
+      }
+
+      alert('تم تغيير كلمة المرور بنجاح!');
+      showSection('loginSection');
+    });
+  </script>
+
+</body>
+</html>
